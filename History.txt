@@ -1,0 +1,19 @@
+== 0.2.2 2008-04-19
+
+* 1 enhancement:
+  * Viddler::Video#embed_code method now can receive hash with options
+
+== 0.2.1 2008-04-19
+
+* 1 bug fix:
+  * Fixing compatibility of <tt>viddler.videos.upload</tt> method with Rails
+
+== 0.2.0 2008-04-18
+
+* 1 major enhancement:
+  * Implemented <tt>videos.getRecordToken</tt> method
+
+== 0.1.0 2008-04-17
+
+* 1 major enhancement:
+  * Initial release
