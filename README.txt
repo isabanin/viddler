@@ -1,7 +1,8 @@
 = Viddler.rb
 
 * Rubyforge profile: http://viddler.rubyforge.com
-* Source code repository: https://apricode.svn.beanstalkapp.com/gems/trunk/viddler
+* Source code: http://github.com/iSabanin/viddler
+* Tracker: http://ilya_sabanin.lighthouseapp.com/projects/10110-viddler-rb/overview
 
 == DESCRIPTION:
 
@@ -39,10 +40,6 @@ Currently implemented API methods:
 == INSTALL:
 
 * sudo gem install viddler
-
-== SEND PATCHES:
-
-* Lighthouse[http://ilya_sabanin.lighthouseapp.com/projects/10110-viddler-rb/overview]
 
 == CONTACT:
 
