@@ -72,11 +72,19 @@ module Viddler
   
     def parse_response(raw_response)
       raise EmptyResponseError if raw_response.blank?
-      response_hash = Hash.from_xml(raw_response)
+      response_hash = xml_to_hash(raw_response)
       if response_error = response_hash['error']
         raise ResponseError.new(viddler_error_message(response_error))
       end
       response_hash
+    end
+    
+    def xml_to_hash(xml)
+      XmlSimple.xml_in_string(xml,
+        'forcearray'   => false,
+        'keeproot'     => true,
+        'SuppressEmpty' => nil
+      )
     end
   
     def put_multipart_params_into_body
@@ -124,6 +132,6 @@ module Viddler
       code = " [code: #{code}]" unless code.empty?
       %Q[#{description}#{details}#{code}]
     end
-  
+      
   end
 end

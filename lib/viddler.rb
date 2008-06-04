@@ -3,6 +3,7 @@ $:.unshift(File.dirname(__FILE__)) unless
 
 require 'rubygems'
 require 'active_support'
+require 'xmlsimple' unless defined? XmlSimple
 require 'ostruct'
 
 require 'ext/open_struct'
