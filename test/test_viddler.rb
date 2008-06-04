@@ -14,10 +14,14 @@ class ViddlerTest < Test::Unit::TestCase
   end
   
   # In order to run the tests you need a working Viddler account and an API key.
-  API_KEY               = nil
-  LOGIN                 = nil
-  PASSWORD              = nil
-  TEST_VIDEO_FILE_PATH  = '/path/to/video'
+  API_KEY                = nil
+  LOGIN                  = nil
+  PASSWORD               = nil
+  TEST_VIDEO_FILE_PATH   = '/path/to/video'
+  SOME_VIDDLER_VIDEO_ID  = 'f8605d95'
+  SOME_VIDDLER_VIDEO_URL = 'http://www.viddler.com/explore/ijustine/videos/293/'
+  SOME_VIDDLER_USERNAME  = 'ijustine'
+  SOME_VIDDLER_TAG       = 'hot'
   
   def setup
     raise KeyRequired unless API_KEY
@@ -39,7 +43,11 @@ class ViddlerTest < Test::Unit::TestCase
   def test_should_upload_video
     credentials_required
     file = File.open(TEST_VIDEO_FILE_PATH)
-    video = @viddler.upload_video(:file => file, :title => 'Testing', :description => 'Bla', :tags => 'one, two, three')
+    video = @viddler.upload_video(:file => file, 
+                                  :title => 'Testing',
+                                  :description => 'Bla',
+                                  :tags => 'one, two, three',
+                                  :make_public => '1')
   end
   
   def test_should_find_profile
@@ -65,26 +73,26 @@ class ViddlerTest < Test::Unit::TestCase
   end
   
   def test_should_get_video_status
-    assert @viddler.get_video_status('f8605d95')
+    assert @viddler.get_video_status(SOME_VIDDLER_VIDEO_ID)
   end
   
   def test_should_find_video_by_id
-    video = @viddler.find_video_by_id('6b0b9af1')
+    video = @viddler.find_video_by_id(SOME_VIDDLER_VIDEO_ID)
     assert_kind_of Viddler::Video, video
   end
   
   def test_should_find_video_by_url
-    video = @viddler.find_video_by_url('http://www.viddler.com/explore/ijustine/videos/293/')
+    video = @viddler.find_video_by_url(SOME_VIDDLER_VIDEO_URL)
     assert_kind_of Viddler::Video, video
   end
   
   def test_should_find_all_videos_by_user
-    videos = @viddler.find_all_videos_by_user('ijustine')
+    videos = @viddler.find_all_videos_by_user(SOME_VIDDLER_USERNAME)
     assert_kind_of Viddler::Video, videos.first
   end
   
   def test_should_find_all_videos_by_tag
-    videos = @viddler.find_all_videos_by_tag('hot')
+    videos = @viddler.find_all_videos_by_tag(SOME_VIDDLER_TAG)
     assert_kind_of Viddler::Video, videos.first
   end
   
