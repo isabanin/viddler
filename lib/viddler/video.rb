@@ -76,7 +76,7 @@ module Viddler
 <param name="flashvars" value="#{flashvars}" />
 <embed src="http://www.viddler.com/#{player_type}/#{self.id}/" width="#{width}" height="#{height}" type="application/x-shockwave-flash" allowScriptAccess="always" flashvars="#{flashvars}" allowFullScreen="true" name="viddlerplayer-#{self.id}" >
 </embed>
-</object>'
+</object>
 CODE
     end
   
