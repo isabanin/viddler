@@ -57,7 +57,7 @@ module Viddler #:nodoc:
     }
     
     VIDEOS_SETDETAILS_ATTRS = {
-      :optional => ]
+      :optional => [
         :title,
         :description,
         :tags,
