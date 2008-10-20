@@ -1,3 +1,7 @@
+== 0.2.4 2008-10-20
+* 1 enhancement:
+  * Added dimensions to video
+  
 == 0.2.2 2008-04-19
 
 * 1 enhancement:
