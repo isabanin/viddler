@@ -15,7 +15,9 @@ module Viddler
                   :comment_count, 
                   :update_time, 
                   :permissions, 
-                  :comment_list
+                  :comment_list,
+                  :width,
+                  :height
   
     def initialize(attributes={}) #:nodoc:
       a = attributes
@@ -34,6 +36,8 @@ module Viddler
       @comments         = a['comment_list'].values.flatten.collect do |comment| 
                             Viddler::Comment.new(comment)
                           end if a['comment_list']
+      @width            = a['width'].to_i
+      @height           = a['height'].to_i
     end
     
     # Returns proper HTML code for embedding

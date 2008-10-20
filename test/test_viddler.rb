@@ -73,6 +73,12 @@ class ViddlerTest < Test::Unit::TestCase
     assert_kind_of Viddler::Video, video
   end
   
+  def test_should_get_dimensions
+    video = @viddler.find_video_by_id('6b0b9af1')
+    assert_equal 640, video.width
+    assert_equal 360, video.height
+  end
+
   def test_should_find_video_by_url
     video = @viddler.find_video_by_url('http://www.viddler.com/explore/ijustine/videos/293/')
     assert_kind_of Viddler::Video, video
