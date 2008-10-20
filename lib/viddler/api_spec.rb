@@ -57,7 +57,7 @@ module Viddler #:nodoc:
     }
     
     VIDEOS_SETDETAILS_ATTRS = {
-      :optional => {
+      :optional => ]
         :title,
         :description,
         :tags,
@@ -70,7 +70,7 @@ module Viddler #:nodoc:
         :tagging_perm,
         :download_perm,
         :download_users
-      }
+      ]
     }
     
     def self.check_attributes(viddler_method, attributes)
