@@ -58,27 +58,30 @@ module Viddler
     # Returns embed code for auto playing simple player with 300px width and height
     #
     def embed_code(options={})
-      options = {
+      options.reverse_merge! \
                   :player_type => 'player',
                   :width => 437,
                   :height => 370,
-                  :autoplay => 'f'
-                }.merge(options)
+                  :autoplay => 'f',
+                  :use_secret_url => false
 
       # get non flashvars from options
-      player_type = options.delete(:player_type)
-      width       = options.delete(:width)
-      height      = options.delete(:height)
+      player_type     = options.delete(:player_type)
+      width           = options.delete(:width)
+      height          = options.delete(:height)
+      use_secret_url  = options.delete(:use_secret_url)
 
       flashvars = options.collect{|key,value| "#{key}=#{value}"}.join('&')
 
+      additional = use_secret_url ? "0/#{permissions['view']['secreturl']}/" : ''
+
       html = <<CODE
 <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="#{width}" height="#{height}" id="viddlerplayer-#{self.id}">
-<param name="movie" value="http://www.viddler.com/#{player_type}/#{self.id}/" />
+<param name="movie" value="http://www.viddler.com/#{player_type}/#{self.id}/#{additional}" />
 <param name="allowScriptAccess" value="always" />
 <param name="allowFullScreen" value="true" />
 <param name="flashvars" value="#{flashvars}" />
-<embed src="http://www.viddler.com/#{player_type}/#{self.id}/" width="#{width}" height="#{height}" type="application/x-shockwave-flash" allowScriptAccess="always" flashvars="#{flashvars}" allowFullScreen="true" name="viddlerplayer-#{self.id}" >
+<embed src="http://www.viddler.com/#{player_type}/#{self.id}/#{additional}" width="#{width}" height="#{height}" type="application/x-shockwave-flash" allowScriptAccess="always" flashvars="#{flashvars}" allowFullScreen="true" name="viddlerplayer-#{self.id}" >
 </embed>
 </object>
 CODE
