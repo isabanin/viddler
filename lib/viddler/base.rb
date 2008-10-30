@@ -332,6 +332,18 @@ module Viddler
       Viddler::Video.new(request.response['video'])
     end
   
+    def set_permalink(video_id, url)
+      authenticate unless authenticated?
+      
+      request = Viddler::Request.new(:post, 'videos.setPermalink')
+      request.run do |p|
+        p.api_key   = @api_key
+        p.sessionid = @session_id
+        p.video_id  = video_id
+        p.permalink  = url
+      end
+    end
+
     # Implements <tt>viddler.videos.getByUser[http://wiki.developers.viddler.com/index.php/Viddler.videos.getByUser]</tt>. Authentication is optional.
     #
     # Options hash could contain next values:
