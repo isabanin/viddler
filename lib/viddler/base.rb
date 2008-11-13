@@ -412,6 +412,15 @@ module Viddler
       end
       parse_videos_list(request.response['video_list'])
     end
+
+    def delete_comment(id)
+      authenticate unless authenticated?
+      request = Viddler::Request.new(:get, 'videos.comments.remove')
+      request.run do |p|
+        p.api_key     = @api_key
+        p.comment_id  = id
+      end
+    end
   
     private
     
