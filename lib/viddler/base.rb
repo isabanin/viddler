@@ -415,9 +415,10 @@ module Viddler
 
     def delete_comment(id)
       authenticate unless authenticated?
-      request = Viddler::Request.new(:get, 'videos.comments.remove')
+      request = Viddler::Request.new(:post, 'videos.comments.remove')
       request.run do |p|
         p.api_key     = @api_key
+        p.sessionid   = @session_id 
         p.comment_id  = id
       end
     end
