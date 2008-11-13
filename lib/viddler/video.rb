@@ -15,7 +15,7 @@ module Viddler
                   :comment_count, 
                   :update_time, 
                   :permissions, 
-                  :comment_list,
+                  :comments,
                   :width,
                   :height
   
