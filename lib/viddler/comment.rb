@@ -2,10 +2,11 @@ module Viddler
   # This class wraps Viddler's comment's information.
   class Comment
   
-    attr_accessor :author, :text, :time, :timepoint
+    attr_accessor :id, :author, :text, :time, :timepoint
   
     def initialize(attributes={}) #:nodoc:
       a = attributes
+      @id     = a['id']      
       @author = a['author']
       @text   = a['text']      
       @time   = Time.at(fix_unix_time(a['time']))
