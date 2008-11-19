@@ -13,31 +13,29 @@ module Viddler
                   :view_count, 
                   :upload_time,
                   :comment_count, 
-                  :update_time, 
                   :permissions, 
                   :comments,
                   :width,
                   :height
   
     def initialize(attributes={}) #:nodoc:
-      a = attributes
-      @id               = a['id']
-      @title            = a['title']
-      @description      = a['description']
-      @tags             = a['tags']
-      @url              = a['url']
-      @thumbnail_url    = a['thumbnail_url']
-      @author           = a['author']
-      @length_seconds   = a['length_seconds'].to_i
-      @view_count       = a['view_count'].to_i
-      @comment_count    = a['comment_count'].to_i
-      @update_time      = a['update_time'] ? Time.at(a['update_time'].to_i) : nil
-      @permissions      = a['permissions'] ? a['permissions'] : nil
-      @comments         = a['comment_list'].values.flatten.collect do |comment| 
+      @id               = attributes['id']
+      @title            = attributes['title']
+      @description      = attributes['description']
+      @tags             = attributes['tags']
+      @url              = attributes['url']
+      @thumbnail_url    = attributes['thumbnail_url']
+      @author           = attributes['author']
+      @length_seconds   = attributes['length_seconds'].to_i
+      @view_count       = attributes['view_count'].to_i
+      @comment_count    = attributes['comment_count'].to_i
+      @upload_time      = attributes['upload_time'] ? Time.at(attributes['upload_time'].to_i/1000) : nil
+      @permissions      = attributes['permissions'] ? attributes['permissions'] : nil
+      @comments         = attributes['comment_list'].values.flatten.collect do |comment| 
                             Viddler::Comment.new(comment)
-                          end if a['comment_list']
-      @width            = a['width'].to_i
-      @height           = a['height'].to_i
+                          end if attributes['comment_list']
+      @width            = attributes['width'].to_i
+      @height           = attributes['height'].to_i
     end
     
     # Returns proper HTML code for embedding
