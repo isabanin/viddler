@@ -430,6 +430,7 @@ module Viddler
     end
   
     def parse_videos_list(video_list)
+      return [Viddler::Video.new(video_list['video'])] unless video_list['video'].is_a?(Array)
       video_list['video'].collect do |attr|
         next unless attr.is_a?(Hash)
         Viddler::Video.new(attr)

@@ -17,7 +17,6 @@ lib/viddler/request.rb
 lib/viddler/user.rb
 lib/viddler/version.rb
 lib/viddler/video.rb
-log/debug.log
 script/console
 script/destroy
 script/generate
