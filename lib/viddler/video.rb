@@ -1,7 +1,9 @@
 module Viddler
   # This class wraps Viddler's video's information.
   class Video
-  
+    
+    include Comparable
+    
     attr_accessor :id, 
                   :url, 
                   :title, 
@@ -84,6 +86,11 @@ module Viddler
 </object>
 CODE
     end
-  
+    
+    # Returns true if the comparison_object is the same object, or is of the same type and has the same id.
+    def ==(other)
+      id == other.id
+    end
+
   end
 end
