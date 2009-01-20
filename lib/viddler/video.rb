@@ -87,9 +87,20 @@ module Viddler
 CODE
     end
     
-    # Returns true if the comparison_object is the same object, or is of the same type and has the same id.
     def ==(other)
+      eql?(other)
+    end
+    
+    def eql?(other)
       id == other.id
+    end
+    
+    def hash
+      id.to_i
+    end
+    
+    def <=>(other)
+      title <=> other.title
     end
 
   end
