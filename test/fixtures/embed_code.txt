@@ -1,0 +1,8 @@
+<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="437" height="370" id="viddlerplayer-6a2babb2">
+<param name="movie" value="http://www.viddler.com/player/6a2babb2/" />
+<param name="allowScriptAccess" value="always" />
+<param name="allowFullScreen" value="true" />
+<param name="flashvars" value="autoplay=f" />
+<embed src="http://www.viddler.com/player/6a2babb2/" width="437" height="370" type="application/x-shockwave-flash" allowScriptAccess="always" flashvars="autoplay=f" allowFullScreen="true" name="viddlerplayer-6a2babb2" >
+</embed>
+</object>

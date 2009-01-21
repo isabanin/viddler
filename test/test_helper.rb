@@ -1,2 +1,2 @@
 require 'test/unit'
-require 'viddler'
+require File.dirname(__FILE__) + '/../lib/viddler'
