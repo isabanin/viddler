@@ -45,27 +45,27 @@ class ViddlerVideoTest < Test::Unit::TestCase
     end
   end
   
-  def test_embed_code
+  def test_embed_code_without_options
     expected_embed_code = File.read(File.dirname(__FILE__) + '/fixtures/embed_code.txt')
     assert_equal expected_embed_code, @video.embed_code 
   end
   
-  def test_equals_when_two_ids_are_equal
+  def test_equals_when_should_be_equals
     second_video = Viddler::Video.new("id" => "6a2babb2")
     assert_equal second_video, @video
   end
   
-  def test_equals_when_two_ids_are_not_equal
+  def test_equals_when_should_not_be_equals
     second_video = Viddler::Video.new("id" => "6a2babb3")
     assert_not_equal second_video, @video
   end
 
-  def test_eql_when_two_ids_are_equal
+  def test_eql_when_should_be_equals
     second_video = Viddler::Video.new("id" => "6a2babb2")
     assert  @video.eql?(second_video)
   end
 
-  def test_eql_when_two_ids_are_not_equal
+  def test_eql_when_should_not_be_equals
     second_video = Viddler::Video.new("id" => "6a2babb3")
     assert  !@video.eql?(second_video)
   end
