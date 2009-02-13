@@ -24,7 +24,7 @@ module Viddler
       @id               = attributes['id']
       @title            = attributes['title']
       @description      = attributes['description']
-      @tags             = attributes['tags']
+      @tags             = attributes['tags'] ? attributes['tags']['global'].to_a : []
       @url              = attributes['url']
       @thumbnail_url    = attributes['thumbnail_url']
       @author           = attributes['author']

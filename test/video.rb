@@ -32,14 +32,15 @@ class ViddlerVideoTest < Test::Unit::TestCase
                     "made_public_time"    => "1227750542000",
                     "width"               => 640,
                     "view_count"          => 3,
-                    "thumbnail_url"       =>  "http://cdn-thumbs.viddler.com/thumbnail_2_6a2babb2.jpg"
+                    "thumbnail_url"       => "http://cdn-thumbs.viddler.com/thumbnail_2_6a2babb2.jpg",
+                    "tags"                => {"global" => "pop"}
                  }
     @video = Viddler::Video.new(@attributes)
   end
   
   
   def test_accessors_and_initialize
-    expected_attributes = @attributes.merge("upload_time" => Time.at(1227747942000.to_i/1000))
+    expected_attributes = @attributes.merge("upload_time" => Time.at(1227747942000.to_i/1000), "tags" => ["pop"])
     ATTRIBUTES.each do |field|
       assert_equal expected_attributes[field.to_s], @video.send(field), "The expected value for #{field} is #{expected_attributes[field.to_s]} but got: #{@video.send(field)}"
     end
