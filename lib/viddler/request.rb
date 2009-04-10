@@ -86,7 +86,7 @@ module Viddler
     end
   
     def put_params_into_url
-      self.url = API_URL + '?' + params.to_query
+      self.url = self.url + '?' + params.to_query
     end
   
     def viddlerize(name)

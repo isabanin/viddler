@@ -137,8 +137,18 @@ module Viddler
     def upload_video(new_attributes={})
       authenticate unless authenticated?
       Viddler::ApiSpec.check_attributes('videos.upload', new_attributes)
-        
+
+      # Get an upload endpoint
+      request = Viddler::Request.new(:post, 'viddler.videos.prepareUpload')
+      request.run do |p|
+        p.api_key     = @api_key
+        p.sessionid   = @session_id
+      end
+      endpoint = request.response['upload']['endpoint'] 
+
+      # Upload to endpoint url
       request = Viddler::Request.new(:post, 'videos.upload')
+      request.url = endpoint
       request.run do |p|
         p.api_key     = @api_key
         p.sessionid   = @session_id
