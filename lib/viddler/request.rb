@@ -1,5 +1,3 @@
-require 'rest_client'
-
 module Viddler
   
   # Raised when response from Viddler contains absolutely no data
@@ -17,16 +15,14 @@ module Viddler
   class Request #:nodoc:
     
     API_URL = 'http://api.viddler.com/rest/v1/'
-    DEFAULT_HEADERS = {:accept => 'application/xml', :content_type => 'application/x-www-form-urlencoded'}
   
-    attr_accessor :url, :http_method, :response, :body
-    attr_reader :headers, :params
+    attr_accessor :url, :http_method, :response
+    attr_reader :params
   
     def initialize(http_method, method) #:nodoc:
       @http_method = http_method.to_s
       @url = API_URL
       self.params = {:method => viddlerize(method)}    
-      self.headers = DEFAULT_HEADERS
     end
     
     # Use this method to setup your request's payload and headers.
@@ -53,22 +49,35 @@ module Viddler
       if block_given?
         set(:params, &block)
       end
+
+      c = Curl::Easy.new(url)
+      c.headers['Accept'] = 'application/xml'
     
       if post? and multipart?
-        put_multipart_params_into_body
+        c.multipart_form_post = true
+        c.http_post(*build_params)
       else
-        put_params_into_url
-      end    
-      request = RestClient::Request.execute(
-         :method => http_method, 
-         :url => url, 
-         :headers => headers, 
-         :payload => body
-       )
-       self.response = parse_response(request)
+        c.url = url_with_params
+        c.perform
+      end
+
+      self.response = parse_response(c.body_str)
     end
   
     private
+
+    def build_params
+      f = []
+      t = []
+      params.each do |key, value| 
+        if value.is_a? File
+          f << Curl::PostField.file(key.to_s, value.path, File.basename(value.path))
+        else
+          t << Curl::PostField.content(key.to_s, value.to_s)
+        end
+      end
+      t + f
+    end
   
     def parse_response(raw_response)
       raise EmptyResponseError if raw_response.blank?
@@ -79,14 +88,8 @@ module Viddler
       response_hash
     end
   
-    def put_multipart_params_into_body
-      multiparams = MultipartParams.new(params)
-      self.body = multiparams.body
-      self.headers = {:content_type => multiparams.content_type}
-    end
-  
-    def put_params_into_url
-      self.url = self.url + '?' + params.to_query
+    def url_with_params
+      self.url + '?' + params.to_query
     end
   
     def viddlerize(name)
@@ -100,11 +103,6 @@ module Viddler
     def params=(hash) #:nodoc:
       @params ||= Hash.new
       @params.update(hash)
-    end
-  
-    def headers=(hash) #:nodoc:
-      @headers ||= Hash.new
-      @headers.update(hash)
     end
   
     def multipart? #:nodoc:
