@@ -2,7 +2,7 @@ require 'fileutils'
 include FileUtils
 
 require 'rubygems'
-%w[rake hoe newgem rubigen active_support curb].each do |req_gem|
+%w[rake hoe newgem rubigen active_support rest_client mime/types].each do |req_gem|
   begin
     require req_gem
   rescue LoadError
