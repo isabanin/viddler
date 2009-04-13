@@ -53,8 +53,8 @@ module Viddler
       c = Curl::Easy.new(url)
       c.headers['Accept'] = 'application/xml'
     
-      if post? and multipart?
-        c.multipart_form_post = true
+      if post? or multipart?
+        c.multipart_form_post = true if multipart?
         c.http_post(*build_params)
       else
         c.url = url_with_params
